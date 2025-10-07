@@ -1,7 +1,6 @@
 <?php
 require_once 'config.php';
 
-// التحقق من تسجيل الدخول
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
@@ -17,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = 'اسم الفئة مطلوب';
     } else {
         try {
-            // التحقق من عدم وجود فئة بنفس الاسم
             $stmt = $pdo->prepare("SELECT id FROM categories WHERE name = ?");
             $stmt->execute([$name]);
             

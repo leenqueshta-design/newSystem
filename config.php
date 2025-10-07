@@ -45,6 +45,5 @@ CREATE TABLE IF NOT EXISTS news (
 try {
     $pdo->exec($tables_sql);
 } catch(PDOException $e) {
-    // تجاهل الخطأ إذا الجداول موجودة أصلاً
 }
 ?>

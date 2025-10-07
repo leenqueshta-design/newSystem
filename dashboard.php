@@ -1,30 +1,24 @@
 <?php
 require_once 'config.php';
 
-// التحقق من تسجيل الدخول
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
 
-// إحصائيات النظام
 try {
-    // عدد الأخبار
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM news WHERE is_deleted = 0");
     $stmt->execute();
     $news_count = $stmt->fetchColumn();
     
-    // عدد الفئات
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM categories");
     $stmt->execute();
     $categories_count = $stmt->fetchColumn();
     
-    // عدد الأخبار المحذوفة
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM news WHERE is_deleted = 1");
     $stmt->execute();
     $deleted_news_count = $stmt->fetchColumn();
     
-    // آخر الأخبار
     $stmt = $pdo->prepare("
         SELECT n.*, c.name as category_name, u.name as user_name 
         FROM news n 

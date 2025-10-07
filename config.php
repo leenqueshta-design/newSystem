@@ -13,7 +13,6 @@ try {
     die("Connection failed: " . $e->getMessage());
 }
 
-// إنشاء الجداول إذا لم تكن موجودة
 $tables_sql = "
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,

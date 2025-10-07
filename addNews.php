@@ -1,7 +1,6 @@
 <?php
 require_once 'config.php';
 
-// التحقق من تسجيل الدخول
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
@@ -10,7 +9,6 @@ if (!isset($_SESSION['user_id'])) {
 $error = '';
 $success = '';
 
-// جلب الفئات للقائمة المنسدلة
 try {
     $stmt = $pdo->prepare("SELECT * FROM categories ORDER BY name");
     $stmt->execute();
@@ -29,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = 'جميع الحقول مطلوبة';
     } else {
         try {
-            // التعامل مع رفع الصورة
             $image_name = '';
             if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
                 $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
@@ -54,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->execute([$title, $category_id, $details, $image_name, $user_id]);
                 $success = 'تم إضافة الخبر بنجاح!';
                 
-                // مسح بيانات النموذج بعد الإضافة الناجحة
                 $_POST = array();
             }
         } catch(PDOException $e) {
